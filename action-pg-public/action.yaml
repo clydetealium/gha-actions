@@ -8,3 +8,4 @@ runs:
       shell: bash
       run: |
         ls -la
+        ls -al ./.git
