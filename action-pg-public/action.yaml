@@ -2,5 +2,8 @@ name: 'Find Schema Changes'
 description: 'Rough check for public schema references'
 
 runs:
-  using: 'docker'
-  image: 'Dockerfile'
+  using: 'composite'
+  steps:
+    - name: Run My Bash Script
+      run: |
+        ls -la
