@@ -2,11 +2,5 @@ name: 'Find Schema Changes'
 description: 'Rough check for public schema references'
 
 runs:
-  using: 'composite'
-  steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v3
-
-    - name: Find Schema Changes
-      shell: bash
-      run: scripts/pg-public.sh
+  using: 'shell'
+  command: 'bash scripts/pg-public.sh'
