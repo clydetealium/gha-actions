@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 FILE_MATCH='liquibase.properties'
 UPDATE_MATCH='defaultSchemaName:public'
 
