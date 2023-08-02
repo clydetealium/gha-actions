@@ -1,8 +1,11 @@
 name: gha action ci
 
 on:
-  push:
+  pull_request:
+    branches:
+      - master
     paths:
+      - .github/workflows/ci.yaml
       - 'action-*/**' # By convention please name your actions action-<action-name>
 
 jobs:
