@@ -33,8 +33,7 @@ jobs:
       id: changed_actions
       run: |
         git branch
-        git fetch
-        git checkout main
+        git diff --name-only 'main' 'd86341c509d3c6fbac20124a6ab7cb36e94f1a7e' \
         git diff --name-only 'main' '${{ github.sha }}' \
           | awk -F '/' '{print $1}' \
           | uniq > ./changed_actions.txt
