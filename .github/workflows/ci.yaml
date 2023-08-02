@@ -26,7 +26,8 @@ jobs:
           | awk -F '/' '{print $1}' \
           | uniq > ./changed_actions.txt
 
-        CHANGED_ACTIONS=$(cat ./changed_actions.txt) && \
+        CHANGED_ACTIONS=$(cat ./changed_actions.txt)
+        echo "CHANGED_ACTIONS: $CHANGED_ACTIONS"
         echo "changed_actions=${CHANGED_ACTIONS}" >> $GITHUB_ENV
 
     - name: Verify Version Update and README.md Presence
