@@ -30,6 +30,7 @@ jobs:
     - name: Determine Changed Actions
       id: changed_actions
       run: |
+        git log --oneline
         git fetch --depth=1 origin ${{ github.ref }}
         git diff --name-only '${{ github.event.before }}' '${{ github.sha }}' \
           | awk -F '/' '{print $1}' \
