@@ -1,5 +1,5 @@
 name: 'Find Schema Changes'
-description: 'Rough check for public schema references blah'
+description: 'Rough check for public schema references'
 
 runs:
   using: 'composite'
