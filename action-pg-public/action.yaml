@@ -1,0 +1,11 @@
+name: 'Find Schema Changes'
+description: 'Find changes in SQL files containing the string "defaultSchemaName".'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Find Schema Changes
+      run: bash ./pg-public.sh
