@@ -21,17 +21,18 @@ jobs:
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v3
+      with:
+        fetch-depth: 2
 
-    # - name: Set up Git
-    #   run: |
-    #     git config user.name "GitHub Actions"
-    #     git config user.email "<>"
+    - name: Set up Git
+      run: |
+        git config user.name "GitHub Actions"
+        git config user.email "<>"
 
     - name: Determine Changed Actions
       id: changed_actions
       run: |
         git log --oneline
-        git fetch --depth=1 origin ${{ github.ref }}
         git diff --name-only '${{ github.event.before }}' '${{ github.sha }}' \
           | awk -F '/' '{print $1}' \
           | uniq > ./changed_actions.txt
