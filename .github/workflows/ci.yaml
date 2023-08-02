@@ -17,11 +17,23 @@ jobs:
       with:
         fetch-depth: 0
 
+    - name: Set Diff Base
+      run: |
+        BASE_REF=${{ github.event.before }}
+        if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+          BASE_REF='origin/main'
+        else
+          echo "Unexpected triggering event: ${{ github.event_name }}"
+          exit 1
+        fi
+        
+        echo "base_ref=${BASE_REF}" >> $GITHUB_ENV
+
     - name: Determine Changed Actions
       id: changed_actions
       run: |
         git fetch
-        CHANGED_ACTIONS=$(git diff --name-only 'origin/main' '${{ github.sha }}' \
+        CHANGED_ACTIONS=$(git diff --name-only "${{ env.base_ref }}" '${{ github.sha }}' \
           | awk -F '/' '{print $1}' \
           | uniq)
 
@@ -50,7 +62,7 @@ jobs:
         fi
 
     - name: Update Tags
-      if: env.changed_actions != ''
+      if: github.event_name == 'push' && env.changed_actions != ''
       run: |
         for action in ${{ env.changed_actions }}; do
           cd "$action"
