@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
     - name: Checkout Repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     - name: Set up Git
       run: |
@@ -31,12 +31,12 @@ jobs:
       id: changed_actions
       run: |
         CHANGED_ACTIONS=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | awk -F '/' '{print $1}' | uniq)
-        echo "::set-output name=changed_actions::${CHANGED_ACTIONS}"
+        echo "changed_actions=${CHANGED_ACTIONS}" >> $GITHUB_ENV
 
     - name: Verify Version Update and README.md Presence
       if: steps.changed_actions.outputs.changed_actions != ''
       run: |
-        for action in ${{ steps.changed_actions.outputs.changed_actions }}; do
+        for action in ${{ env.changed_actions }}; do
           if git diff --quiet "$action/VERSION"; then
             echo "ERROR: $action/VERSION has not been updated."
             exit 1
