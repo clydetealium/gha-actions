@@ -34,6 +34,7 @@ jobs:
       run: |
         git fetch
         CHANGED_ACTIONS=$(git diff --name-only "${{ env.base_ref }}" '${{ github.sha }}' \
+          -- 'action-*/**' \
           | awk -F '/' '{print $1}' \
           | uniq)
 
