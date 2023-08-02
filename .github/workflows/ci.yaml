@@ -26,7 +26,6 @@ jobs:
           echo "Unexpected triggering event: ${{ github.event_name }}"
           exit 1
         fi
-        
         echo "base_ref=${BASE_REF}" >> $GITHUB_ENV
 
     - name: Determine Changed Actions
@@ -37,10 +36,6 @@ jobs:
           -- 'action-*/**' \
           | awk -F '/' '{print $1}' \
           | uniq)
-
-        echo "changed_actions=${CHANGED_ACTIONS}"
-        printf "changed_actions=${CHANGED_ACTIONS}"
-        ls -al
         echo "changed_actions=${CHANGED_ACTIONS}" >> $GITHUB_ENV
 
     - name: Convention Enforcement
@@ -50,7 +45,7 @@ jobs:
         for action in ${{ env.changed_actions }}; do
           if [ ! -f "$action/VERSION" ]; then
             ERRORS="${ERRORS}\nERROR: $action/VERSION not found."
-          elif git diff --quiet "$action/VERSION"; then
+          elif git diff --quiet "${{ env.base_ref }}" '${{ github.sha }}' "$action/VERSION"; then
             ERRORS="${ERRORS}\nERROR: $action/VERSION has not been updated."
           fi
           if [ ! -f "$action/README.md" ]; then
