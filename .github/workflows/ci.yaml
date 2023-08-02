@@ -32,7 +32,7 @@ jobs:
     - name: Determine Changed Actions
       id: changed_actions
       run: |
-        git diff --name-only '${{ env.target_branch }}' '${{ github.sha }}' \
+        git diff --name-only 'main' '${{ github.sha }}' \
           | awk -F '/' '{print $1}' \
           | uniq > ./changed_actions.txt
 
