@@ -21,12 +21,10 @@ jobs:
       id: changed_actions
       run: |
         git fetch
-        git diff --name-only 'origin/main' '${{ github.sha }}' \
+        CHANGED_ACTIONS=$(git diff --name-only 'origin/main' '${{ github.sha }}' \
           | awk -F '/' '{print $1}' \
-          | uniq > ./changed_actions.txt
+          | uniq)
 
-        CHANGED_ACTIONS=$(cat ./changed_actions.txt)
-        echo "CHANGED_ACTIONS: $CHANGED_ACTIONS"
         echo "changed_actions=${CHANGED_ACTIONS}" >> $GITHUB_ENV
 
     - name: Verify Version Update and README.md Presence
@@ -47,7 +45,9 @@ jobs:
           fi
         done
         if [ -n "$ERRORS" ]; then
-          printf $ERRORS
+          echo $ERRORS
+          echo '---------'
+          printf "$ERRORS"
           exit 1
         fi
 
