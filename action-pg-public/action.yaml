@@ -8,4 +8,5 @@ runs:
       uses: actions/checkout@v3
 
     - name: Find Schema Changes
-      run: bash ./pg-public.sh
+      shell: bash
+      run: ./pg-public.sh
