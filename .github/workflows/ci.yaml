@@ -24,25 +24,17 @@ jobs:
       with:
         fetch-depth: 2
 
-    - name: Set up Git
+    - name: Get Target Branch Head
       run: |
-        git config user.name "GitHub Actions"
-        git config user.email "<>"
+        TARGET_BRANCH=$(git rev-parse origin/target_branch)
+        echo "target_branch=${TARGET_BRANCH}" >> $GITHUB_ENV
 
     - name: Determine Changed Actions
       id: changed_actions
       run: |
-        git log --oneline
-        git diff --name-only '${{ github.event.before }}' '${{ github.sha }}' \
+        git diff --name-only '${{ env.target_branch }}' '${{ github.sha }}' \
           | awk -F '/' '{print $1}' \
           | uniq > ./changed_actions.txt
-        
-        exit_code=$?
-        echo "EXIT CODE: $exit_code"
-        if [ $exit_code -ne 0 ]; then
-          echo "ERROR: Git diff command failed with exit code $exit_code."
-          exit $exit_code
-        fi
 
         CHANGED_ACTIONS=$(cat ./changed_actions.txt) && \
         echo "changed_actions=${CHANGED_ACTIONS}" >> $GITHUB_ENV
