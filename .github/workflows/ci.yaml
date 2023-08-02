@@ -34,7 +34,9 @@ jobs:
       run: |
         ERRORS=''
         for action in ${{ env.changed_actions }}; do
-          if git diff --quiet "$action/VERSION"; then
+          if [ ! -f "$action/README.md" ]; then
+            ERRORS="${ERRORS}\nERROR: $action/VERSION not found."
+          elif git diff --quiet "$action/VERSION"; then
             ERRORS="${ERRORS}\nERROR: $action/VERSION has not been updated."
           fi
           if [ ! -f "$action/README.md" ]; then
