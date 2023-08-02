@@ -32,7 +32,7 @@ jobs:
         echo "changed_actions=${CHANGED_ACTIONS}" >> $GITHUB_ENV
 
     - name: Verify Version Update and README.md Presence
-      if: steps.changed_actions.outputs.changed_actions != ''
+      if: env.changed_actions != ''
       run: |
         for action in ${{ env.changed_actions }}; do
           if git diff --quiet "$action/VERSION"; then
@@ -50,9 +50,9 @@ jobs:
         done
 
     - name: Update Tags
-      if: steps.changed_actions.outputs.changed_actions != ''
+      if: env.changed_actions != ''
       run: |
-        for action in ${{ steps.changed_actions.outputs.changed_actions }}; do
+        for action in ${{ env.changed_actions }}; do
           cd "$action"
           version=$(<VERSION)
           git tag -a "v$version" -m "Release $version"
