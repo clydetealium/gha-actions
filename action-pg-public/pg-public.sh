@@ -8,3 +8,5 @@ for file in $changed_files; do
     echo "Changes in $file:"
     git diff --unified=0 -- $file | grep -n 'defaultSchemaName' | awk -F ':' '{print $1 ":" $3}'
 done
+
+ehco "Done"
