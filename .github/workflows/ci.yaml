@@ -37,7 +37,10 @@ jobs:
           | awk -F '/' '{print $1}' \
           | uniq)
 
-        echo "changed_actions='${CHANGED_ACTIONS}'" >> $GITHUB_ENV
+        echo "changed_actions=${CHANGED_ACTIONS}"
+        printf "changed_actions=${CHANGED_ACTIONS}"
+        ls -al
+        echo "changed_actions=${CHANGED_ACTIONS}" >> $GITHUB_ENV
 
     - name: Convention Enforcement
       if: env.changed_actions != ''
