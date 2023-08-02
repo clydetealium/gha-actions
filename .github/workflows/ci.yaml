@@ -32,6 +32,9 @@ jobs:
     - name: Determine Changed Actions
       id: changed_actions
       run: |
+        git branch
+        git fetch
+        git checkout main
         git diff --name-only 'main' '${{ github.sha }}' \
           | awk -F '/' '{print $1}' \
           | uniq > ./changed_actions.txt
