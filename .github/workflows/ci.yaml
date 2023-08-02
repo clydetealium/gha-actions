@@ -15,13 +15,8 @@ jobs:
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v3
-      # with:
-      #   fetch-depth: 0
-
-    - name: Get Target Branch Head
-      run: |
-        TARGET_BRANCH=$(git ls-remote origin target_branch | cut -f 1)
-        echo "target_branch=${TARGET_BRANCH}" >> $GITHUB_ENV
+      with:
+        fetch-depth: 0
 
     - name: Determine Changed Actions
       id: changed_actions
