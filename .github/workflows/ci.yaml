@@ -21,6 +21,7 @@ jobs:
     - name: Determine Changed Actions
       id: changed_actions
       run: |
+        git fetch
         git branch
         git diff --name-only 'main' '${{ github.sha }}'
         git diff --name-only 'main' '${{ github.sha }}' \
