@@ -1,6 +1,11 @@
 name: gha action ci
 
 on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'action-*/**' # By convention please name your actions action-<action-name>
   pull_request:
     branches:
       - main
