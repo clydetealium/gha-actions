@@ -12,3 +12,4 @@ for file in $changed_files; do
 done
 
 echo 'all clear'
+echo 'done'
