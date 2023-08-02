@@ -1,5 +1,5 @@
 name: 'Find Schema Changes'
-description: 'Find changes in SQL files containing the string "defaultSchemaName".'
+description: 'Rough check for public schema references'
 
 runs:
   using: 'composite'
