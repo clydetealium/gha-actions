@@ -9,4 +9,4 @@ runs:
 
     - name: Find Schema Changes
       shell: bash
-      run: ./pg-public.sh
+      run: scripts/pg-public.sh
