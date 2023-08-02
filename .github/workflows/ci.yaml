@@ -55,7 +55,7 @@ jobs:
         for action in ${{ env.changed_actions }}; do
           cd "$action"
           version=$(<VERSION)
-          git tag -a "v$version" -m "Release $version"
-          git push origin "v$version"
+          git tag -a "$action-$version" -m "Release $version"
+          git push origin "$action-$version"
           cd ..
         done
