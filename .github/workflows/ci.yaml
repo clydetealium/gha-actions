@@ -27,7 +27,7 @@ jobs:
 
         echo "changed_actions=${CHANGED_ACTIONS}" >> $GITHUB_ENV
 
-    - name: Verify Version Update and README.md Presence
+    - name: Convention Enforcement
       if: env.changed_actions != ''
       run: |
         ERRORS=''
@@ -45,8 +45,6 @@ jobs:
           fi
         done
         if [ -n "$ERRORS" ]; then
-          echo $ERRORS
-          echo '---------'
           printf "$ERRORS"
           exit 1
         fi
