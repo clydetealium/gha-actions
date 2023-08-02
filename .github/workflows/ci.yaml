@@ -30,7 +30,7 @@ jobs:
     - name: Determine Changed Actions
       id: changed_actions
       run: |
-        CHANGED_ACTIONS=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | awk -F '/' '{print $1}' | uniq)
+        CHANGED_ACTIONS=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | awk -F '/' '{print $1}' | uniq) && \
         echo "changed_actions=${CHANGED_ACTIONS}" >> $GITHUB_ENV
 
     - name: Verify Version Update and README.md Presence
