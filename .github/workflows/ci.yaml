@@ -27,9 +27,6 @@ jobs:
         BASE_REF=${{ github.event.before }}
         if [[ "${{ github.event_name }}" == "pull_request" ]]; then
           BASE_REF='origin/main'
-        else
-          echo "Unexpected triggering event: ${{ github.event_name }}"
-          exit 1
         fi
         echo "base_ref=${BASE_REF}" >> $GITHUB_ENV
 
