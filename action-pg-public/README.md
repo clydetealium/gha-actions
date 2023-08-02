@@ -7,8 +7,3 @@ To use an action in a workflow, add the following step to the workflow:
       - name: Check For Default Schema Public
         uses: clydetealium/gha-action/action-pg-public@v0.0.1
 ```
-
-more stuff
-more stuff
-more stuff
-more stuff
