@@ -1,26 +1,25 @@
 #!/bin/sh
-FROM_REF=$INPUT_FROM
-TO_REF=$INPUT_TO
+FROM_REF=${INPUT_FROM:-origin/master}
+TO_REF=${INPUT_TO:-HEAD}
 FILE_MATCH='liquibase.properties'
 UPDATE_MATCH='defaultSchemaName:public'
 
-echo "Checking for the use of 'public' as the default schema name..."
-# Use git diff to get the changes and filter the filenames containing 'defaultSchemaName:public'
-changed_files=$(git diff
-  --name-only --diff-filter=ACMRTUXB "${FROM_REF}" "${TO_REF}" \
+printf "Checking for the use of 'public' as the default schema name...\n"
+
+changed_files=$(git diff \
+  --name-only --diff-filter=ACMRTUXB "${FROM_REF}" "${TO_REF}" |\
   grep "${FILE_MATCH}" | uniq)
 
-echo "${FILE_MATCH} files with updates matching ${UPDATE_MATCH}: $changed_files"
+printf "\n${FILE_MATCH} files with updates matching '${UPDATE_MATCH}':\n$changed_files\n"
 # Iterate through the changed files and find the lines with the specific string
 for file in $changed_files; do
-  printf "${UPDATE_MATCH} found in $file as a result of this diff:\n$(git diff --unified=0 "${FROM_REF}" "${TO_REF}" $file)"
+  printf "\n'${UPDATE_MATCH}' found in file:\n $file \nas a result of this diff:\n\n$(git diff --unified=0 "${FROM_REF}" "${TO_REF}" $file)\n"
 done
 
 if [ -n "$changed_files" ]; then
-  echo "The above files contain the string ${UPDATE_MATCH}."
-  echo "The use of 'public' as the default schema is not allowed."
+  printf "\nThe above files contain the string '${UPDATE_MATCH}'.\nThe use of 'public' as the default schema is not allowed.\n"
   exit 1
 else
-  echo "No files contain the string ${UPDATE_MATCH}."
+  printf "\nNo files contain the string ${UPDATE_MATCH}.\n"
   exit 0
 fi
