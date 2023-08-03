@@ -1,6 +1,12 @@
 name: 'Find Schema Changes'
 description: 'Rough check for public schema references'
-
+inputs:
+  from:
+    description: 'A scm ref that serves as the starting point for the comparison'
+    required: true
+  to:
+    description: 'A scm ref that serves as the ending point for the comparison'
+    required: true
 runs:
   using: 'composite'
   steps:
