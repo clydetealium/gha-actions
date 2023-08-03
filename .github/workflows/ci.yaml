@@ -39,8 +39,15 @@ jobs:
         ls -al /home/runner/work/_actions/actions
         echo 'ls -al RUNNER_WORKSPACE'
         ls -al $RUNNER_WORKSPACE
+        echo 'ls -al gha-action'
+        ls -al $RUNNER_WORKSPACE/gha-action
+        echo 'ls -al RUNNER_WORKSPACE/../_actions/actions'
+        ls -al $RUNNER_WORKSPACE/../_actions/actions
         git config user.name "Clyde Tedrick"
         git config user.email "clyde.tedrick@tealium.com"
+
+    - name: Check For Default Schema Public
+      uses: clydetealium/gha-action/action-pg-public@action-pg-public-0.0.10
 
     - name: Set Diff Base
       run: |
