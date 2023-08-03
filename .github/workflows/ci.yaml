@@ -11,6 +11,7 @@ on:
       - main
     paths:
       - 'action-*/**' # By convention please name your actions action-<action-name>
+  workflow_dispatch: {}
 
 jobs:
   update_tags:
@@ -24,6 +25,12 @@ jobs:
 
     - name: Setup Git
       run: |
+        echo 'environment'
+        env
+        echo 'ls -al .'
+        ls -al .
+        echo 'find action.yaml'
+        find . -name action.yaml
         git config user.name "Clyde Tedrick"
         git config user.email "clyde.tedrick@tealium.com"
 
