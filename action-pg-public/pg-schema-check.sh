@@ -10,10 +10,10 @@ changed_files=$(git diff \
   --name-only --diff-filter=ACMRTUXB "${FROM_REF}" "${TO_REF}" |\
   grep "${FILE_MATCH}" | uniq)
 
-printf "\n${FILE_MATCH} files with updates matching '${UPDATE_MATCH}':\n$changed_files\n"
+printf "\n${FILE_MATCH} files with updates matching '${UPDATE_MATCH}':\n$changed_files\n\n"
 # Iterate through the changed files and find the lines with the specific string
 for file in $changed_files; do
-  printf "\n'${UPDATE_MATCH}' found in file:\n $file \nas a result of this diff:\n\n$(git diff --unified=0 "${FROM_REF}" "${TO_REF}" $file)\n"
+  printf "\n'${UPDATE_MATCH}' found in file:\n $file \nas a result of this diff:\n\n$(git diff --unified=0 "${FROM_REF}" "${TO_REF}" $file)\n\n"
 done
 
 if [ -n "$changed_files" ]; then
