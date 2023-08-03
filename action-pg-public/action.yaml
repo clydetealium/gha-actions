@@ -6,4 +6,4 @@ runs:
   steps:
     - name: Find Schema Changes
       shell: bash
-      run: $GITHUB_ACTION_PATH/scripts/pg-schema-check.sh
+      run: $GITHUB_ACTION_PATH/pg-schema-check.sh
