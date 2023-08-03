@@ -7,6 +7,7 @@ runs:
     - name: Run My Bash Script
       shell: bash
       run: |
+        env
         ls -la
         ls -al ./.git
         ls -al ./.github
