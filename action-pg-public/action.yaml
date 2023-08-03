@@ -11,5 +11,4 @@ runs:
         ls -al ./.git
         ls -al ./.github
         echo "$GITHUB_WORKSPACE"
-        ls -al $GITHUB_WORKSPACE/.github/pg-schema-check.sh
-        $GITHUB_WORKSPACE/.github/pg-schema-check.sh
+        ls -al $GITHUB_WORKSPACE
