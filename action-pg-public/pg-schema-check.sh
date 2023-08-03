@@ -1,4 +1,6 @@
 #!/bin/sh
+FROM_REF=$INPUT_FROM
+TO_REF=$INPUT_TO
 FILE_MATCH='liquibase.properties'
 UPDATE_MATCH='defaultSchemaName:public'
 
