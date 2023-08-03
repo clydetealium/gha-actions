@@ -37,6 +37,8 @@ jobs:
         find /home/runner/work/ -name actions
         echo 'ls -al /home/runner/work/_actions/actions'
         ls -al /home/runner/work/_actions/actions
+        echo 'ls -al RUNNER_WORKSPACE'
+        ls -al $RUNNER_WORKSPACE
         git config user.name "Clyde Tedrick"
         git config user.email "clyde.tedrick@tealium.com"
 
