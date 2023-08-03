@@ -4,12 +4,6 @@ description: 'Rough check for public schema references'
 runs:
   using: 'composite'
   steps:
-    - name: Run My Bash Script
+    - name: Find Schema Changes
       shell: bash
-      run: |
-        env
-        ls -la
-        ls -al ./.git
-        ls -al ./.github
-        echo "$GITHUB_WORKSPACE"
-        ls -al $GITHUB_WORKSPACE
+      run: $GITHUB_ACTION_PATH/scripts/pg-schema-check.sh
