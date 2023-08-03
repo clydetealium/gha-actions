@@ -31,6 +31,10 @@ jobs:
         ls -al .
         echo 'find action.yaml'
         find . -name action.yaml
+        echo 'ls -al /home/runner/work/'
+        ls -al /home/runner/work/
+        echo 'find actions in /home/runner/work/'
+        find /home/runner/work/ -name actions
         git config user.name "Clyde Tedrick"
         git config user.email "clyde.tedrick@tealium.com"
 
