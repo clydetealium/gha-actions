@@ -27,8 +27,13 @@ jobs:
         echo "{\"version\":\"$LAST_TAG\"}" > package.json
         npm install -g conventional-recommended-bump
 
+        cat package.json
+
         # Get the recommended version bump
         VERSION_BUMP=$(conventional-recommended-bump)
+
+        echo "VERSION_BUMP=$VERSION_BUMP"
+        echo "TAG=$LAST_TAG"
         echo "NEW_VERSION=$VERSION_BUMP" >> $GITHUB_ENV
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
