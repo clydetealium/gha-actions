@@ -16,9 +16,31 @@ jobs:
       with:
         fetch-depth: 0
 
-    # https://github.com/marketplace/actions/conventional-commits-release
-    # Conventional commits: https://www.conventionalcommits.org/en/v1.0.0/
-    - name: Release
-      uses: jef/conventional-commits-release-action@v1
+    - name: Determine release version
+      id: determine_version
+      run: |
+        # Install conventional-recommended-bump
+        npm install -g conventional-recommended-bump
+
+        # Get the recommended version bump
+        VERSION_BUMP=$(conventional-recommended-bump)
+
+        LAST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "")
+        if [ -z "$LAST_TAG" ]; then
+          NEW_VERSION="1.0.0"
+        else
+          NEW_VERSION=$(npm version "$VERSION_BUMP" --git-tag-version=false)
+        fi
+        echo "NEW_VERSION=$NEW_VERSION" >> $GITHUB_ENV
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Create GitHub release
+      uses: softprops/action-gh-release@v1
       with:
+        tag_name: ${{ env.NEW_VERSION }}
+        name: Release ${{ env.NEW_VERSION }}
+        draft: false
+        prerelease: false
+        generateReleaseNotes: true
         token: ${{ secrets.GITHUB_TOKEN }}
