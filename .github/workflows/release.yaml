@@ -20,7 +20,7 @@ jobs:
       id: determine_version
       run: |
         # Install conventional-recommended-bump
-        touch package.json
+        echo '{}' > package.json
         npm install -g conventional-recommended-bump
 
         # Get the recommended version bump
