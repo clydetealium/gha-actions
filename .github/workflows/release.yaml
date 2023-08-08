@@ -1,0 +1,24 @@
+name: gha action release
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch: {}
+
+jobs:
+  release:
+    name: create release
+    runs-on: ubuntu-20.04
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    # https://github.com/marketplace/actions/conventional-commits-release
+    # Conventional commits: https://www.conventionalcommits.org/en/v1.0.0/
+    - name: Release
+      uses: jef/conventional-commits-release-action@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
