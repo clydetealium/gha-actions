@@ -19,20 +19,17 @@ jobs:
     - name: Determine release version
       id: determine_version
       run: |
+        LAST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "")
+        if [ -z "$LAST_TAG" ]; then
+          LAST_TAG="1.0.0"
+        fi
         # Install conventional-recommended-bump
-        echo '{}' > package.json
+        echo "{\"version\":\"$LAST_TAG\"}" > package.json
         npm install -g conventional-recommended-bump
 
         # Get the recommended version bump
         VERSION_BUMP=$(conventional-recommended-bump)
-
-        LAST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "")
-        if [ -z "$LAST_TAG" ]; then
-          NEW_VERSION="1.0.0"
-        else
-          NEW_VERSION=$(npm version "$VERSION_BUMP" --git-tag-version=false)
-        fi
-        echo "NEW_VERSION=$NEW_VERSION" >> $GITHUB_ENV
+        echo "NEW_VERSION=$VERSION_BUMP" >> $GITHUB_ENV
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
