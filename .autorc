@@ -1,5 +1,8 @@
 {
+  "name": "cicd-bot-teal",
+  "email": "",
   "plugins": [
     "@auto/changelog"
+    // Other plugins and configurations go here
   ]
 }
