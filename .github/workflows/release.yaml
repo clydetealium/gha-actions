@@ -20,18 +20,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Install Node.js
-        uses: actions/setup-node@v2
+      - name: Bump version and push tag
+        uses: hennejg/github-tag-action@v4.1.jh1
         with:
-          node-version: '14'
-
-      - name: Install semantic-release
-        run: npm install -g semantic-release@latest
-
-      - name: Configure GitHub Token
-        run: npx semantic-release-cli setup
-
-      - name: Run semantic-release
-        run: npx semantic-release
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
