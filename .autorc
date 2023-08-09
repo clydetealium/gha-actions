@@ -1,7 +1,0 @@
-{
-  "name": "cicd-bot-teal",
-  "email": "",
-  "plugins": [
-    "@auto/changelog"
-  ]
-}
