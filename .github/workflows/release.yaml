@@ -24,6 +24,14 @@ jobs:
 
       - name: Run auto
         run: |
+          NEW_VERSION=$(auto version)
+
+          echo "NEW_VERSION=$NEW_VERSION"
+          
+          # Create a new Git tag
+          git tag -a "v$NEW_VERSION" -m "Release $NEW_VERSION"
+          git push origin "v$NEW_VERSION"
+
           auto release
           auto shipit
         env:
