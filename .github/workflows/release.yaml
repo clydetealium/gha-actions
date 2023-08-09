@@ -16,14 +16,10 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-
-      - name: Install Node.js
-        uses: actions/setup-node@v2
         with:
-          node-version: '14'
+          fetch-depth: 0
 
-      - name: Install auto
-        run: npm install -g auto@latest
+      - uses: auto-it/setup-auto@v1
 
       - name: Run auto
         run: auto shipit
