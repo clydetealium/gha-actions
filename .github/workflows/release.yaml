@@ -20,19 +20,18 @@ jobs:
         with:
           fetch-depth: 0
 
-      - uses: auto-it/setup-auto@v1
+      - name: Install Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
 
-      - name: Run auto
-        run: |
-          NEW_VERSION=$(auto version)
+      - name: Install semantic-release
+        run: npm install -g semantic-release@latest
 
-          echo "NEW_VERSION=$NEW_VERSION"
-          
-          # Create a new Git tag
-          git tag -a "v$NEW_VERSION" -m "Release $NEW_VERSION"
-          git push origin "v$NEW_VERSION"
+      - name: Configure GitHub Token
+        run: npx semantic-release-cli setup
 
-          auto release
-          auto shipit
+      - name: Run semantic-release
+        run: npx semantic-release
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
