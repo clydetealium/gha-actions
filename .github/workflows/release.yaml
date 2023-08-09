@@ -14,6 +14,18 @@ jobs:
     name: create release
     runs-on: ubuntu-20.04
     steps:
-    - uses: google-github-actions/release-please-action@v3
-      with:
-        release-type: simple
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Install auto
+        run: npm install -g auto@latest
+
+      - name: Run auto
+        run: auto shipit
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
